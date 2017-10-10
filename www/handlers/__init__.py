@@ -28,7 +28,8 @@ def checkInt(value):
 def authManagerRequest(request):
     host = request.headers.get('X-Forwarded-For', None)
     if host is not None:
-        if host != configs.admin_ip:
+        adminIPList = configs.admin_ip.values()
+        if host not in adminIPList:
             logging.warning('403 API request from %s' % (host))
             return False
     return True

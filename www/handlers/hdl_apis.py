@@ -60,7 +60,8 @@ async def api_upload_pic(request):
         raise APIPermissionError('不要乱来哦！不然我拿小拳拳。。。')
     reader = await request.multipart()
     pic = await reader.next()
-    filename = next_id() + '.' + pic.filename.split('.')[-1]
+    picID = next_id()
+    filename = picID + '.' + pic.filename.split('.')[-1]
     size = 0
     picPath = os.path.join(configs.pictures_path, filename)
     with open(picPath, 'wb') as f:
@@ -71,7 +72,6 @@ async def api_upload_pic(request):
             size += len(chunk)
             f.write(chunk)
 
-    picID = next_id()
     mysqlPicPath = '/pictures/' + filename
     pic = Pic(id=picID, picture_path=mysqlPicPath)
     await pic.save()
