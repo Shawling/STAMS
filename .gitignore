@@ -103,6 +103,8 @@ ENV/
 # My configurations:
 fabfile.py
 /www/config_default.py
+backup/
+conf/
 
 # OS generated files #    
 ######################    
