@@ -1,0 +1,124 @@
+{% extends '__base__.html' %} {% block title %} {{ blog.title }} {% endblock %} {% block beforehead %}
+
+<script>
+    var comment_url = '/api/blogs/{{ blog.id }}/comments';
+    $(function () {
+        var phone_search_form = new Vue({
+            el: '#form-submit-comment',
+            data: {
+                name: '',
+                email: '',
+                website: '',
+                content: ''
+            },
+            methods: {
+                submit: function (event) {
+                    event.preventDefault();
+                    var
+                        $form = $('#form-submit-comment'),
+                        data = {
+                            name: this.name,
+                            email: this.email,
+                            website: this.website,
+                            content: this.content
+                        };
+                    if (!this.name.trim() || !this.content.trim()) {
+                        return;
+                    }
+                    $form.postJSON(comment_url, data, function (err, result) {
+                        if (err) {
+                            return alert(err);
+                        }
+                        location.reload();
+                        $("html,body").animate({ scrollTop: $("#comments").offset().top }, 10);
+                    });
+                }
+            }
+        });
+    });
+
+</script> {% endblock %} {% block content %}
+<div class="am-g am-g-fixed blog-detail-fixed blog-content">
+    <div class="am-u-sm-12 ">
+        <article class="am-article blog-article-p">
+            <div class="am-article-hd">
+                <h1 class="am-article-title blog-text-center">{{ blog.title }}</h1>
+                <p class="am-article-meta blog-text-center">
+                    <span class="am-article-meta">发表于{{ blog.created_at|datetime }}</span>
+                </p>
+            </div>
+            <div class="am-article-bd">
+                <img src="{{ blog.picture }}" alt="" class="am-u-sm-12 blog-entry-img blog-article-margin">
+                <p class="class=" am-article-lead "">
+                    {{ blog.html_content|safe }}
+                </p>
+            </div>
+        </article>
+
+        <div class="am-g blog-article-widget blog-article-margin">
+            <div class="am-u-lg-4 am-u-md-5 am-u-sm-7 am-u-sm-centered blog-text-center">
+                {% if blog.tags %}
+                <span class="am-icon-tags">&nbsp;</span> {% endif %} {% for tag in blog.tags %}
+                <a href="/blogs/filter/tag?tagID={{ tag.id }}">{{ tag.name }}&nbsp;</a> {% endfor %}
+            </div>
+        </div>
+
+        <ul class="am-pagination blog-article-margin">
+            {% if prevBlog %}
+            <li class="am-pagination-prev">
+                <a href="/blog/{{prevBlog}}" class="">&laquo; 一切的回顾</a>
+            </li>
+            {% endif %} {% if nextBlog %}
+            <li class="am-pagination-next">
+                <a href="/blog/{{nextBlog}}">不远的未来 &raquo;</a>
+            </li>
+            {% endif %}
+        </ul>
+
+        <hr> {% if comments %} {% for comment in comments %}
+        <div id="comments" class="blog_comment">
+            <div class="blog_comment_user">
+                <div class="blog_comment_user_l">
+                    <strong>{{ comment.user_name }}</strong>
+                    <span>&nbsp; {{ comment.created_at|datetime }}</span>
+                </div>
+                <div class="blog_comment_user_r">
+                    {% if comment.user_email != '' %}
+                    <span class="am-icon-envelope-o">&nbsp;</span>
+                    <span>{{ comment.user_email }}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    {% endif %} {% if comment.user_website != '' %}
+                    <span class="am-icon-at">&nbsp;
+                        <span>{{ comment.user_website }}</span> {% endif %}
+                </div>
+                <div class="blog_comment_text">{{ comment.html_content|safe }}</div>
+            </div>
+        </div>
+        {% endfor %} {% endif %}
+        <br/>
+        <form id="form-submit-comment" class="am-form am-g" data-am-validator>
+            <h3 class="blog-comment">评论</h3>
+            <fieldset>
+                <div class="am-form-group am-u-sm-4 blog-clear-left">
+                    <input v-model="name" type="text" class="" placeholder="名字" required>
+                </div>
+                <div class="am-form-group am-u-sm-4">
+                    <input v-model="email" type="email" class="" placeholder="邮箱">
+                </div>
+
+                <div class="am-form-group am-u-sm-4 blog-clear-right">
+                    <input v-model="website" type="text" class="" placeholder="个人链接">
+                </div>
+
+                <div class="am-form-group">
+                    <textarea v-model="content" class="" rows="5" placeholder="一字千金" style="resize:none;" required></textarea>
+                </div>
+
+                <p>
+                    <button v-on:click="submit" type="submit" class="am-btn am-btn-default">发表评论</button>
+                </p>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<!-- content end -->
+{% endblock %}

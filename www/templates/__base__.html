@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8"> {% block meta %}
+    <!-- block meta  -->{% endblock %}
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="/resources/i/favicon.png">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="/resources/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="apple-touch-icon-precomposed" href="/resources/i/app-icon72x72@2x.png">
+    <meta name="msapplication-TileImage" content="/resources/i/app-icon72x72@2x.png">
+    <meta name="msapplication-TileColor" content="#0e90d2">
+    <link rel="stylesheet" href="/resources/css/amazeui.min.css">
+    <link rel="stylesheet" href="/resources/css/app.css">
+    <script src="/resources/js/sticky.min.js"></script>
+    <script src="/resources/js/jquery.min.js"></script>
+    <script src="/resources/js/sha1.min.js"></script>
+    <script src="/resources/js/vue.min.js"></script>
+    <!-- <script src="/resources/js/vue.js"></script> -->
+    <script src="/resources/js/awesome.js"></script>
+    {% block beforehead %}
+    <!-- before head  -->{% endblock %}
+</head>
+
+<body id="blog">
+    <header class="am-g am-g-fixed blog-fixed blog-text-center blog-header">
+        <div class="am-u-sm-8 am-u-sm-centered">
+            <h1>Shawling's blog</h1>
+        </div>
+    </header>
+    <hr>
+    <nav class="am-g am-g-fixed blog-fixed blog-nav">
+        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only blog-button" data-am-collapse="{target: '#blog-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
+
+        <div class="am-collapse am-topbar-collapse" id="blog-collapse">
+            <ul class="am-nav am-nav-pills am-topbar-nav">
+                <li class="{{ __navi_1_active__ }}"><a href="/">流水账</a></li>
+                <li class="{{ __navi_2_active__ }}"><a href="/gallery">照片墙</a></li>
+                <li class="{{ __navi_3_active__ }}"><a href="/archive">存档</a></li>
+            </ul>
+            <form action="/blogs/filter/searchString" method="get" class="am-topbar-form am-topbar-right am-form-inline" role="search" data-am-validator>
+                <div class="am-form-group">
+                    <input name="searchstring" type="text" class="am-form-field am-input-sm" placeholder="搜索标题，内容" required>
+                </div>
+            </form>
+        </div>
+    </nav>
+    <hr> {% block content %} {% endblock %}
+
+    <footer class="blog-footer">
+        <div class="am-g am-g-fixed blog-fixed am-u-sm-centered blog-footer-padding">
+            <div class="am-u-sm-12 am-u-md-4- am-u-lg-4">
+                <h3>站点简介</h3>
+                <p class="am-text-sm">用于记录 <br> 使用Python + Amaze UI <br><br>
+                    <U><a href="https://github.com/Shawling/STAMS" target="_blank">Fork me on Github</a></U>
+            </div>
+            <div class="am-u-sm-12 am-u-md-4- am-u-lg-4">
+                <h3>社交账号</h3>
+                <p>
+                    <a href="mailto:Darin4lin@gmail.com"><span class="am-icon-envelope-o am-icon-fw blog-icon blog-icon"></span></a>
+                    <a href="https://github.com/Shawling" target="_blank"><span class="am-icon-github am-icon-fw blog-icon blog-icon"></span></a>
+                </p>
+            </div>
+            <div class="am-u-sm-12 am-u-md-4- am-u-lg-4">
+                <h1>Thanks</h1>
+                <p>
+                    <ul>
+                        <li>
+                            <U><a href="https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000"
+                                    target="_blank">廖雪峰的Python教程</a></U>
+                        </li>
+                        <li>
+                            <U><a href="http://tpl.amazeui.org/content.html?7" target="_blank">Amaze UI</a></U>
+                        </li>
+                        <li>...</li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+        <div class="blog-text-center">Made by Shawling</div>
+    </footer>
+
+    <!--[if (gte IE 9)|!(IE)]><!-->
+    <script src="/resources/js/jquery.min.js"></script>
+    <!--<![endif]-->
+    <!--[if lte IE 8 ]>
+<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="/resources/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+    <script src="/resources/js/amazeui.min.js"></script>
+    <!-- <script src="/resources/js/app.js"></script> -->
+    {% block body_script %} {% endblock %}
+</body>
+
+</html>

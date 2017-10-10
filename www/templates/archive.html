@@ -1,0 +1,42 @@
+{% extends '__base__.html' %} {% block title %} 存档 {% endblock %} {% block beforehead %}
+
+<script>
+
+</script> {% endblock %} {% block content %}
+<!-- content srart -->
+<div class="am-g am-g-fixed blog-fixed blog-content">
+    <div class="am-u-sm-12">
+        <h1 class="blog-text-center">-- 存档 --</h1>
+
+        {% for year in dates.keys()|sort(reverse = True) %}
+        <div class="timeline-year">
+            <h1>{{ year }}</h1>
+            <hr> {% for month in dates[year].keys()|sort(reverse = True) %}
+            <ul>
+                <h3>{{ month }}月</h3>
+                <hr> {% for blog in dates[year][month]|sort(attribute='day', reverse = True) %}
+                <li>
+                    <span class="am-u-sm-12 am-u-md-2 timeline-span">{{blog.year}}/{{blog.month}}/{{blog.day}}</span>
+                    <span class="am-u-sm-12 am-u-md-10">
+                        <a href="/blog/{{ blog.id }}">{{blog.title}}</a>
+                    </span>
+                    <!-- <span class="am-u-sm-4 am-u-md-4 am-hide-sm-only">
+                        <span>&nbsp;</span> -->
+                        <!-- {% for tag in blog.tags %}
+                        <a href="/blogs/filter/tag?tagID={{ tag.id }}">
+                            {{ tag.name }}&nbsp;&nbsp;&nbsp;
+                        </a>
+                        {% endfor %} -->
+                    <!-- </span> -->
+                </li>
+                {% endfor %}
+                <br> 
+            </ul>
+            <br> {% endfor %}
+        </div>
+        <br> {% endfor %}
+        <hr>
+    </div>
+</div>
+<!-- content end -->
+{% endblock %}

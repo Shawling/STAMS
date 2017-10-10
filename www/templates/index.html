@@ -1,0 +1,48 @@
+{% extends '__base_sidebar__.html' %} {% block title %} Shawling {% endblock %} {% block beforehead %}
+<meta name="baidu-site-verification" content="kBUMdlM7Rp" /> {% endblock %} {% block content_with_sidebar %}
+<!-- content srart -->
+<div class="am-u-md-9 am-u-sm-12">
+    {% if blogs[0] %}
+    <article class="am-g blog-entry-article">
+        <div class="am-u-lg-12 am-u-md-12 am-u-sm-12 am-u-sm-centered blog-entry-img">
+            <img src="{{ blogs[0].picture }}" alt="" class="am-u-sm-12">
+        </div>
+        <div class="am-u-lg-12 am-u-md-12 am-u-sm-12 blog-entry-text blog-text-center">
+            {% if blogs[0].tags %}
+            <span class="am-article-meta am-icon-tags">&nbsp;</span> {% endif %} {% for tag in blogs[0].tags %}
+
+            <span class="am-article-meta"><a href="/blogs/filter/tag?tagID={{ tag.id }}" class="blog-color">{{ tag.name }}&nbsp;</a></span> {% endfor %}
+            <span class="am-article-meta">&nbsp;&nbsp;&nbsp;发表于{{ blogs[0].created_at|datetime }}</span>
+            <h1><a href="/blog/{{ blogs[0].id }}">{{ blogs[0].title }}</a></h1>
+            <p>{{ blogs[0].html_summary|safe }}</p>
+            <p><a href="/blog/{{ blogs[0].id }}" class="blog-continue">继续阅读</a></p>
+        </div>
+    </article>
+    {% endif %} {% for blog in blogs[1:] %}
+    <article class="am-g blog-entry-article">
+        {% if blog.picture %}
+        <div class="am-u-lg-5 am-u-md-12 am-u-sm-12 blog-entry-img">
+            <img src="{{ blog.picture }}" alt="" class="am-u-sm-12">
+        </div>
+        {% endif %}
+        <div class="am-u-lg-7 am-u-md-12 am-u-sm-12 blog-entry-text">
+            {% if blog.tags %}
+            <span class="am-article-meta am-icon-tags">&nbsp;</span> {% endif %} {% for tag in blog.tags %}
+            <span class="am-article-meta"><a href="/blogs/filter/tag?tagID={{ tag.id }}" class="blog-color">{{ tag.name }}&nbsp;</a></span> {% endfor %}
+            <span class="am-article-meta">发表于{{ blog.created_at|datetime }}</span>
+            <h1><a href="/blog/{{ blog.id }}">{{ blog.title }}</a></h1>
+            <p>{{ blog.html_summary|safe }}</p>
+            <p><a href="/blog/{{ blog.id }}" class="blog-continue">继续阅读</a></p>
+        </div>
+    </article>
+    {% endfor %}
+    <ul class="am-pagination">
+        {% if page.has_previous %}
+        <li class="am-pagination-prev"><a href="/blogs/pageindex/{{page.page_index - 1}}">&laquo; Prev</a></li>
+        {% endif %} {% if page.has_next %}
+        <li class="am-pagination-next"><a href="/blogs/pageindex/{{page.page_index + 1}}">Next &raquo;</a></li>
+        {% endif %}
+    </ul>
+</div>
+<!-- content end -->
+{% endblock %}

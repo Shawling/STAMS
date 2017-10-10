@@ -1,0 +1,23 @@
+{% extends '__base__.html' %} {% block title %} Shawling {% endblock %}
+{% block content %}
+<!-- content srart -->
+<div class="am-g am-g-fixed blog-fixed">
+    {% block content_with_sidebar %} {% endblock %}
+    <div class="am-u-md-3 am-u-sm-12 blog-sidebar">
+        <div class="blog-sidebar-widget blog-bor">
+            <h2 class="blog-text-center blog-title"><span>stams</span></h2>
+            <img src="/resources/i/IMG_3859.jpg" alt="about me" class="blog-entry-img">
+            <p>我们一直在坚持着，不是为了改变这个世界，而是希望不被这个世界所改变。</p>
+        </div>
+        <div class="blog-clear-margin blog-sidebar-widget blog-bor am-g ">
+            <h2 class="blog-title"><span>TAG cloud</span></h2>
+            <div class="am-u-sm-12 blog-clear-padding">
+                {% for tag in tags %}
+                <a href="/blogs/filter/tag?tagID={{ tag.id }}" class="blog-tag">{{ tag.name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- content end -->
+{% endblock %}

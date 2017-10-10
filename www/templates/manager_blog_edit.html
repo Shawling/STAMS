@@ -1,0 +1,50 @@
+{% extends '__base__.html' %} {% block title %} 发表博客 {% endblock %} {% block content %}
+
+<div class="am-g am-g-fixed blog-fixed blog-content">
+    <br>
+    <form method="post" enctype="multipart/form-data" action="/api/pics" class="am-form am-g">
+        <fieldset>
+            <div class="am-form-group am-u-sm-12 blog-clear-left ">
+                <input type="file" name="pic" accept="image/*" required/>
+            </div>
+            <div>
+                <button type="submit" class="am-btn am-btn-default">
+                    上传</button>
+            </div>
+        </fieldset>
+    </form>
+
+    <form action="/api/blogs" method="post" data-am-validator class="am-form am-g">
+        <fieldset>
+            <div class="am-form-group am-u-sm-12 blog-clear-left ">
+                <input name="picture" type="text" placeholder="照片ID">
+            </div>
+            <div class="am-form-group am-u-sm-12 blog-clear-left ">
+                <input name="title" type="text" placeholder="标题" required>
+            </div>
+            <div class="am-form-group am-u-sm-12 blog-clear-left ">
+                <textarea rows="10" name="summary" placeholder="摘要" required></textarea>
+            </div>
+            <div class="am-form-group am-u-sm-12 blog-clear-left">
+                <textarea rows="25" name="content" placeholder="内容" required></textarea>
+            </div>
+            <div class="am-form-group am-u-sm-12 blog-clear-left ">
+                <b >已有Tags</b>
+                <br>
+                {% for tag in tags %}
+                <span >{{ tag.name }} &nbsp;&nbsp; </span>
+                {% endfor %}
+                <br>
+                <br>
+                <input name="tag_str" type="text" placeholder="Tags" required>
+            </div>
+            <div>
+                <button type="submit" class="am-btn am-btn-default">
+                    <i class="am-icon-save"></i> 发表</button>
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+<!-- content end -->
+{% endblock %}

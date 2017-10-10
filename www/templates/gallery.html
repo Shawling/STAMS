@@ -1,0 +1,33 @@
+{% extends '__base__.html' %} {% block title %} 照片墙 {% endblock %} {% block beforehead %}
+
+<script>
+function reS(){ 
+    $(window).resize()
+} 
+$(function(){ 
+    　window.setInterval(reS,500); 
+}); 
+</script>
+
+{% endblock %} {% block content %}
+
+<div class="am-g am-g-fixed blog-fixed blog-content">
+    <figure data-am-widget="figure" class="am am-figure am-figure-default " data-am-figure="{  pureview: 'true' }">
+        <div id="container">
+            {% for pic in picList %}
+            <div><img src="{{ pic.picture_path }}" alt="{{ pic.feel }}">
+                <figcaption class="am-figure-capition-btm">
+                    {{ pic.feel }}
+                </figcaption>
+            </div>
+            {% endfor %}
+        </div>
+    </figure>
+
+</div>
+
+<!-- content end -->
+{% endblock %} {% block body_script %}
+<script src="/resources/js/pinto.min.js"></script>
+<script src="/resources/js/img.js"></script>
+{% endblock %}
