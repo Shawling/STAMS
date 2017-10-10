@@ -99,3 +99,7 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# My configurations:
+fabfile.py
+/www/config_default.py
