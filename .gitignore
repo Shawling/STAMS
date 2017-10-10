@@ -103,3 +103,4 @@ ENV/
 # My configurations:
 fabfile.py
 /www/config_default.py
+*/.DS_Store
