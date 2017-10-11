@@ -198,9 +198,8 @@ async def page_gallery():
     pics_not_found = []
     pics_founded = []
     for pic in pics:
-        picFile = os.path.join(
-            os.path.abspath(os.path.join(os.path.dirname(__file__), "..")),
-            pic.picture_path[1:])
+        picFile = os.path.join(configs.pictures_path, pic.picture_path[10:])
+        print(picFile)
         if not os.path.exists(picFile):
             pics_not_found.append(pic)
         else:
