@@ -10,6 +10,7 @@ __author__ = 'Shawling'
 import tinify
 import os
 import config_default
+import requests
 
 pictures_path = os.path.dirname(os.path.abspath(__file__))
 tinypng_path = os.path.join(pictures_path, 'tinypng')
@@ -18,7 +19,19 @@ if not os.path.exists(tinypng_path):
 
 tinify.key = config_default.configs['tinify_key']
 for pic_file in os.listdir(pictures_path):
-    if not os.path.isdir(pic_file):
+    pic_path = os.path.join(pictures_path, pic_file)
+    if not os.path.isdir(pic_path):
         if pic_file[-3:] == 'jpg' or pic_file[-3:] == 'png' or pic_file[-4:] == 'jpeg' or pic_file[-3:] == 'JPG' or pic_file[-3:] == 'PNG' or pic_file[-4:] == 'JPEG':
-            source = tinify.from_file(pic_file)
+            print('tinying %s' % pic_path)
+            source = tinify.from_file(pic_path)
             source.to_file(os.path.join(tinypng_path, pic_file.lower()))
+
+for pic_file in os.listdir(tinypng_path):
+    pic_path = os.path.join(tinypng_path, pic_file)
+    if not os.path.isdir(pic_path):
+        if pic_file[-3:] == 'jpg' or pic_file[-3:] == 'png' or pic_file[-4:] == 'jpeg' or pic_file[-3:] == 'JPG' or pic_file[-3:] == 'PNG' or pic_file[-4:] == 'JPEG':
+            url = 'http://www.shawling.cc/api/pics'
+            files = {'pic': open(pic_path, 'rb')}
+            print('uploading %s' % pic_path)
+            response = requests.post(url, files=files)
+            print(response.text)
